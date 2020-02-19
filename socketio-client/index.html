@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css" />
+	<style>
+		.container {
+			margin-top: 10px;
+		}
+		pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; height: 468px}
+		pre .string { color: green; }
+		pre .number { color: darkorange; }
+		pre .boolean { color: blue; }
+		pre .null { color: magenta; }
+		pre .key { color: red; }
+		textarea {font-size: .8rem !important;}
+		hr.flat {padding: 0; margin: 0 0 5px 0}
+		i{font-size: .8rem; color: #52ABCA; height: 20px; display: block}
+		.prompt{
+			position: relative;
+		}
+		button.clear{
+			position: absolute;
+			top: 0;
+			margin-top: -35px;
+			margin-left: 19px;
+			left: 0
+		}
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div class="container">
+			<div class="row">
+				<hr>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-12" style="margin-bottom: 10px;">
+							<input type="text" class="form-control" placeholder="URL" v-model="url" @change="storeConnectionData">
+						</div>
+						<div class="col-md-4">
+							<input type="text" class="form-control" placeholder="ROOM" v-model="room" @change="storeConnectionData">
+						</div>
+						<div class="col-md-8">
+							<div class="input-group mb-3">
+								<input type="text" class="form-control" placeholder="EVENT" v-model="event">
+								<div class="input-group-append">
+									<button class="btn btn-info" type="button" @click="addEvent">Subscribe</button>
+								</div>
+							  </div>
+						</div>
+						<div class="col-md-12" style="margin-top: -10px; margin-bottom: 8px; height:25px;">
+							<ul style="list-style: none; padding: 0;">
+								<li v-for="event in events" style="float: left;">
+									<h5>
+										<span class="badge badge-dark" style="border-top-right-radius: 0;border-bottom-right-radius: 0;">{{event}}</span>
+										<span class="badge badge-danger" @click="removeEvent(event)" style="cursor: pointer; margin-left: -5px; border-top-left-radius: 0;border-bottom-left-radius: 0;">X</span>
+									</h5>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<textarea rows="18" class="form-control" placeholder="TOKEN" v-model="token"  @change="storeToken"></textarea>
+						</div>
+					</div>
+					<hr>
+					<button type="buttom" class="btn btn-success"  @click.stop.prevent="connect" v-show="connected === false">Connect</button>
+					<button type="button" class="btn btn-danger" @click="disconect" v-show="connected">Disconnect</button>
+				</div>
+				<div class="col-md-6 prompt">
+					<button class="btn btn-danger btn-sm clear" @click="clearPrompt">Clear</button>
+					<pre  v-html="result"></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
+	<script src="./app.js"></script>
+</body>
+</html>

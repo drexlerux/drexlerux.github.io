@@ -33,6 +33,7 @@ var v = new Vue({
             this.rurl = `${this.url}`
             this.socket = io(this.rurl, {
                 transports: ['websocket'],
+                upgrade: false,
                 query: {
                     'room': this.room,
                     'authorization': this.token,

@@ -42,6 +42,9 @@
 						<div class="col-md-12" style="margin-bottom: 10px;">
 							<input type="text" class="form-control" placeholder="URL" v-model="url" @change="storeConnectionData">
 						</div>
+						<div class="col-md-12" style="margin-bottom: 10px;">
+							<input type="text" class="form-control" placeholder="CONFIRM RESOURCE" v-model="confirmResource" @change="storeConnectionData">
+						</div>
 						<div class="col-md-4">
 							<input type="text" class="form-control" placeholder="ROOM" v-model="room" @change="storeConnectionData">
 						</div>
@@ -80,6 +83,7 @@
 			</div>
 		</div>
 	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
 	<script src="./app.js"></script>

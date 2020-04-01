@@ -2,6 +2,7 @@ var v = new Vue({
     el: "#app",
     data: {
         url: "",
+        confirmResource: "",
         token: "",
         result: "",
         room: "",
@@ -15,6 +16,11 @@ var v = new Vue({
         let storedUrl = localStorage.getItem("url")
         if (storedUrl) {
             this.url = storedUrl
+        }
+
+        let storedConfirmResource = localStorage.getItem("confirm_resource")
+        if (storedConfirmResource) {
+            this.confirmResource = storedConfirmResource
         }
 
         let storedToken = localStorage.getItem("token")
@@ -69,6 +75,9 @@ var v = new Vue({
             if (this.url.trim() != "")
                 localStorage.setItem("url", this.url)
 
+            if (this.confirmResource.trim() != "")
+                localStorage.setItem("confirm_resource", this.confirmResource)
+
             if (this.room.trim() != "")
                 localStorage.setItem("room", this.room)
         },
@@ -85,6 +94,11 @@ var v = new Vue({
                 //localStorage.setItem("events", JSON.stringify(this.events))
                 this.socket.on(this.event, (data) => {
                     this.result += `${this.event}<hr class="flat">${syntaxHighlight(data)}<hr>`
+                    if (this.confirmResource.trim() != "") {
+                        axios.put(`${this.url}/${this.confirmResource}/${data.uuid}`, {}, {
+                            headers: {'authorization': this.token}
+                        })
+                    }
                 })
             }
         },

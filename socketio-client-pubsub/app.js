@@ -79,6 +79,9 @@ var v = new Vue({
 
             this.socket.on('disconnect', () => {
                 this.connected = false
+                this.events.forEach(_event => {
+                    this.socket.off(_event)
+                })
                 this.events = []
             });
 
